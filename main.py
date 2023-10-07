@@ -15,7 +15,4 @@ async def root():
 
 @app.post("/api")
 async def handle_anki_data(request: Request):
-    print("tu")
-    print(await request.json())
-    print("tams")
     return {"message": "Hello World"}
