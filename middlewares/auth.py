@@ -24,7 +24,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
         data = await request.json()
 
         login, password = data.get("login"), data.get("password")
-
+        print(login, password)
         if not (login and password):
             return JSONResponse(status_code=400, content="Incorrect payload")
         if login != "test" or password != "test":
