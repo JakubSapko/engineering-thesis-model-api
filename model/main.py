@@ -13,13 +13,10 @@ data.drop(
 )
 
 data["target"] = data["interval"].apply(lambda x: 1 if x >= 21 else 0)
-# print(data.columns)
 
 Y = data["target"].to_numpy()
 data.drop(["target"], inplace=True, axis=1)
 X = data.to_numpy()
-# print(X)
-# print(len(Y))
 scaler = StandardScaler()
 scaler = scaler.fit(X)
 X = scaler.transform(X)
@@ -28,11 +25,16 @@ clf = MLPClassifier(
 )
 x = clf.fit(X, Y)
 print(x)
-test = [2500, 88, 2, 2, 432, 8, 0, 1001]
+# test = [2500, 88, 2, 2, 432, 8, 0, 1001]
 
-test = scaler.transform([test])
-print(clf.predict(test))
+# test = scaler.transform([test])
+# print(clf.predict(test))
 
-
-print(clf.predict(X) == Y)
-print(clf.predict(X))
+import ass
+with open("test.ass", encoding="utf-16") as f:
+    doc = ass.parse(f)
+    print(doc)
+    print(list(doc.sections.keys()))
+    print(doc.events)
+    for i in doc.events:
+        print(i)
