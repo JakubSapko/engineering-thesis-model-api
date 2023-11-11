@@ -4,8 +4,6 @@ from sklearn.preprocessing import StandardScaler
 
 data = pd.read_csv("2023-11-01_17-45-10_output.csv")
 
-print(data.columns)
-
 data.drop(
     ["cardId", "ord", "deckName", "note", "mod", "dictionary_form", "definitions"],
     inplace=True,
@@ -24,17 +22,29 @@ clf = MLPClassifier(
     solver="lbfgs", alpha=1e-5, hidden_layer_sizes=(5, 2), random_state=1
 )
 x = clf.fit(X, Y)
-print(x)
 # test = [2500, 88, 2, 2, 432, 8, 0, 1001]
 
 # test = scaler.transform([test])
 # print(clf.predict(test))
 
 import ass
-with open("test.ass", encoding="utf-16") as f:
+
+from sudachipy import tokenizer, dictionary
+
+mode = tokenizer.Tokenizer.SplitMode.A
+tokenizer_obj = dictionary.Dictionary().create()
+
+
+list_of_sets = []
+with open("test2.ass", encoding="utf-16") as f:
     doc = ass.parse(f)
-    print(doc)
-    print(list(doc.sections.keys()))
-    print(doc.events)
-    for i in doc.events:
-        print(i)
+    for i in doc.events[2:]:
+        if isinstance(i, ass.line.Dialogue):
+            print(i.text)
+            #print([m.surface() for m in tokenizer_obj.tokenize(i.text, mode)])
+            x = {m.surface() for m in tokenizer_obj.tokenize(i.text, mode)}
+          #  print(x)
+            list_of_sets.append(x)
+
+temp = set.union(*list_of_sets)
+print(temp)
