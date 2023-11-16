@@ -11,7 +11,6 @@ data.drop(
 )
 
 data["target"] = data["interval"].apply(lambda x: 1 if x >= 21 else 0)
-
 Y = data["target"].to_numpy()
 data.drop(["target"], inplace=True, axis=1)
 X = data.to_numpy()
