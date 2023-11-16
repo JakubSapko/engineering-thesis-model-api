@@ -21,3 +21,7 @@ async def handle_anki_data(request: Request):
     for deck in data["cards"].items():
         pd.DataFrame(deck[1]["result"]).to_csv("data.csv")
     return {"message": "Hello World"}
+
+
+
+
